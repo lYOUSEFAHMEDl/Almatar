@@ -181,8 +181,18 @@ public void selectNumberOfChildren(int numberOfChildren) throws Exception {
         }
     }
 
-public String getSelectedPassengersAndClass() throws Exception {
-    Allure.step("Get Selected Passengers and Class");
+    public String getSelectedClass(String Class) throws Exception {
+        Allure.step("Get Selected Class");
+       String xpath = String.format(
+               "//div[contains(@class, 'almatar-cabin__item') and " +
+                       "normalize-space(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'))='%s' and contains(@class, 'almatar-cabin__item--active')]",
+               Class.trim().toLowerCase());
+       By selectedClass = By.xpath(xpath);
+        return getText(selectedClass).trim();
+    }
+
+public String getSelectedPassengers() throws Exception {
+    Allure.step("Get Selected Passengers");
     By passengersSummary = By.xpath("(//span[@class='almatar-flight-search-travelers__value pr-2'])[position()]");
     return getText(passengersSummary).trim();
 }
